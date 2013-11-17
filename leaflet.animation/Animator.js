@@ -10,6 +10,7 @@ L.Animator = L.Class.extend({
 		this._start = Number.MAX_VALUE;
 		this._end = Number.MIN_VALUE;
 		this._endCallbacks = new Array();
+		this._progressCallbacks = new Array();
 	},
 
 	addAnimatedGeometry: function(animatedGeometry) {
@@ -78,6 +79,7 @@ L.Animator = L.Class.extend({
 			this._frameT = tempT;
 
 			this._step(this._playDirection * this.options.speed * delta);
+			this._executeProgressCallbacks();
 			if((this._playDirection === -1 && this.isStart())
 				|| (this._playDirection === 1 && this.isEnd())) {
 				this._stop();
@@ -126,6 +128,25 @@ L.Animator = L.Class.extend({
 		for(var i = 0; i < this._endCallbacks.length; i++) {
 			this._endCallbacks[i]();
 		}
+	},
+
+	addProgressCallback: function(callback) {
+		this._progressCallbacks.push(callback);
+	},
+
+	_executeProgressCallbacks: function() {
+		var progress = this.getProgress();
+		for(var i = 0; i < this._progressCallbacks.length; i++) {
+			this._progressCallbacks[i](progress);
+		}
+	},
+
+	getProgress: function() {
+		return (this._t - this._start) / (this._end - this._start);
+	},
+
+	setProgress: function(percent) {
+		this.setTime(this._start + (this._end - this._start) * percent);
 	}
 });
 

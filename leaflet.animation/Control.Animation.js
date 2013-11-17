@@ -17,6 +17,7 @@ L.Control.Animation = L.Control.extend({
 			stepWidth: this.options.stepWidth
 		});
 		this._animator.addOnAnimationEndCallback(this._deactivate.bind(this));
+		this._animator.addProgressCallback(this._progress.bind(this));
 	},
 
 	onAdd: function (map) {
@@ -34,8 +35,7 @@ L.Control.Animation = L.Control.extend({
 		this._playBackwardsButton  = this._createIconButton(
 		        'animation-play-backwards', 'Play backwards', animationName + '-play-backwards', 
 		        container, this.playBackwards,  this);
-		this._slider  = this._createButton(
-		        '----------------', 'Time slider', animationName + '-slider', 
+		this._slider  = this._createSlider('Time slider', animationName + '-slider', 
 		        container, this.toStart,  this);
 		this._playButton  = this._createIconButton(
 		        'animation-play', 'Play', animationName + '-play', 
@@ -57,10 +57,6 @@ L.Control.Animation = L.Control.extend({
 		return container;
 	},
 
-	onRemove: function (map) {
-		
-	},
-
 	addAnimatedGeometry: function(animatedGeometry) {
 		this._animator.addAnimatedGeometry(animatedGeometry);
 	},
@@ -68,16 +64,19 @@ L.Control.Animation = L.Control.extend({
 	step: function() {
 		this.pause();
 		this._animator.step();
+		this._progress(this._animator.getProgress());
 	},
 
 	stepBackwards: function() {
 		this.pause();
 		this._animator.stepBackwards();
+		this._progress(this._animator.getProgress());
 	},
 
 	toStart: function() {
 		this.pause();
 		this._animator.toStart();
+		this._progress(this._animator.getProgress());
 	},
 
 	play: function() {
@@ -108,6 +107,7 @@ L.Control.Animation = L.Control.extend({
 	toEnd: function() {
 		this.pause();
 		this._animator.toEnd();
+		this._progress(this._animator.getProgress());
 	},
 
 	setSpeed: function(speed) {
@@ -164,6 +164,29 @@ L.Control.Animation = L.Control.extend({
 		return this._createButton(html, title, className, container, fn, context);
 	},
 
+	_createSlider: function(title, className, container, fn, context) {
+		var button = L.DomUtil.create('a', className, container);
+		button.innerHTML = '<div id="animation-slider" class="dragdealer"><div class="handle"></div></div>';
+		button.title = title;
+
+		var wrapper = button.getElementsByTagName('div')[0];
+
+		// Hack to instatiate the slider outside the flow
+		// of this method, otherwise it will fail because
+		// of offsets not being available yet.
+		var self = this;
+		var setup = function() {
+			self._dragdealer = new Dragdealer(wrapper, {
+				slide: false,
+				animationCallback: self._slide.bind(self),
+				speed: 100
+			});
+		};
+		window.setTimeout(setup, 0);
+
+		return button;
+	},
+
 	_speedSelected: function(e) {
 		var speed = this._getDropdownValue(e);
 		if(speed !== null) {
@@ -195,6 +218,30 @@ L.Control.Animation = L.Control.extend({
 		if (map._zoom === map.getMaxZoom()) {
 			L.DomUtil.addClass(this._zoomInButton, className);
 		}
+	},
+
+	_progress: function(percent) {
+		this._autoSlide = percent;
+		this._dragdealer.setValue(percent);
+	},
+
+	_slide: function(percent) {
+		if(this._slideTimeout) {
+			window.clearTimeout(this._slideTimeout);
+			this._slideTimeout = undefined;
+		}
+		if(this._autoSlide === percent) {
+			this._autoSlide = undefined;
+			return;
+		}
+		this.pause();
+		this._slidePercent = percent;
+		this._slideTimeout = window.setTimeout(
+			this._slideDone.bind(this), 15);
+	},
+
+	_slideDone: function() {
+		this._animator.setProgress(this._slidePercent);
 	}
 });
 

@@ -1,14 +1,14 @@
 /* Generic top-center bar styling */ 
 div.leaflet-top.leaflet-center {
 	width: 100%;
+	text-align: center;
 }
 div.leaflet-top.leaflet-center div.leaflet-bar {
-	left: 50%;
-	-webkit-transform: translate(-50%);
-	-moz-transform: translate(-50%);
-	-o-transform: translate(-50%);
-	-ms-transform: translate(-50%);
-	transform: translate(-50%);
+	display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    text-align: left;
+    float: none;
 }
 div.leaflet-top.leaflet-center div.leaflet-bar a {
 	float: left;
@@ -40,6 +40,10 @@ div.leaflet-top.leaflet-center div.leaflet-bar a img {
 a.leaflet-control-animation-slider,
 a.leaflet-control-animation-slider:hover {
 	width: 180px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: white;
+	cursor: default;
 }
 a.leaflet-control-animation-speed,
 a.leaflet-control-animation-speed:hover {
@@ -92,4 +96,23 @@ a.leaflet-control-animation-speed ul li:last-child {
 }
 a.leaflet-control-animation-speed ul li:hover {
     background-color: #f4f4f4;
+}
+
+/* Slider */
+a.leaflet-control-animation-slider div.dragdealer {
+	width: 100%;
+	background-color: #e3e3e3;
+	height: 3px;
+	top: 50%;
+	position: relative;
+	margin-top: -1px;
+	cursor: pointer;
+}
+a.leaflet-control-animation-slider div.dragdealer div.handle {
+	position: absolute;
+	height: 7px;
+	width: 14px;
+	background-color: black;
+	margin-top: -2px;
+	cursor: pointer;
 }
