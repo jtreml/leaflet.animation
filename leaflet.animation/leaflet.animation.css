@@ -1,0 +1,60 @@
+/* Generic top-center bar styling */ 
+div.leaflet-top.leaflet-center {
+	left: 50%;
+	-webkit-transform: translate(-50%);
+	-moz-transform: translate(-50%);
+	-o-transform: translate(-50%);
+	-ms-transform: translate(-50%);
+	transform: translate(-50%);
+}
+
+div.leaflet-top.leaflet-center div.leaflet-bar a {
+	float: left;
+	border-right: 1px solid #ccc;
+	border-bottom: 0;
+}
+div.leaflet-top.leaflet-center div.leaflet-bar a:first-child {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+div.leaflet-top.leaflet-center div.leaflet-bar a:last-child {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/* Generic icon button styling */
+div.leaflet-top.leaflet-center div.leaflet-bar a img {
+	width: 12px;
+	height: 12px;
+	vertical-align: middle;
+	margin-bottom: 1px;
+}
+
+/* Specific animation control styling */
+a.leaflet-control-animation-slider,
+a.leaflet-control-animation-slider:hover {
+	width: 180px;
+}
+
+a.leaflet-control-animation-speed,
+a.leaflet-control-animation-speed:hover {
+	width: auto;
+	padding-left: 7px;
+	padding-right: 7px;
+	border-left: 1px solid #ccc;
+	margin-left: 1px;
+}
+
+a.leaflet-animation-active,
+a.leaflet-animation-active:hover {
+	background-color: #ddd;
+	-webkit-box-shadow: inset 0px 0px 1px 0px #ccc;
+	-moz-box-shadow: inset 0px 0px 1px 0px #ccc;
+	-o-box-shadow: inset 0px 0px 1px 0px #ccc;
+	-ms-box-shadow: inset 0px 0px 1px 0px #ccc;
+	box-shadow: inset 0px 0px 1px 0px #ccc;
+}

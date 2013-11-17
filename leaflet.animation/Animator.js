@@ -1,5 +1,4 @@
 L.Animator = L.Class.extend({
-
 	options: {
 		speed: 1.0,
 		stepWidth: 1000
@@ -10,6 +9,7 @@ L.Animator = L.Class.extend({
 		this._geometries = new Array();
 		this._start = Number.MAX_VALUE;
 		this._end = Number.MIN_VALUE;
+		this._endCallbacks = new Array();
 	},
 
 	addAnimatedGeometry: function(animatedGeometry) {
@@ -81,6 +81,7 @@ L.Animator = L.Class.extend({
 			if((this._playDirection === -1 && this.isStart())
 				|| (this._playDirection === 1 && this.isEnd())) {
 				this._stop();
+				this._executeOnAnimationEndCallbacks();
 			}
 		}
 	},
@@ -115,6 +116,16 @@ L.Animator = L.Class.extend({
 
 	isEnd: function() {
 		return this._t >= this._end;
+	},
+
+	addOnAnimationEndCallback: function(callback) {
+		this._endCallbacks.push(callback);
+	},
+
+	_executeOnAnimationEndCallbacks: function() {
+		for(var i = 0; i < this._endCallbacks.length; i++) {
+			this._endCallbacks[i]();
+		}
 	}
 });
 

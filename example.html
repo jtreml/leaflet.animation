@@ -7,11 +7,14 @@
 		<script src="leaflet/build/deps.js"></script>
 		<script src="leaflet/debug/leaflet-include.js"></script>
 
+		<link rel="stylesheet" href="leaflet.animation/leaflet.animation.css" />
+
 		<script src="leaflet.animation/RequestAnimationFrameShim.js"></script>
 
 		<script src="leaflet.animation/LatLngAnimated.js"></script>
 		<script src="leaflet.animation/PolylineAnimated.js"></script>
 		<script src="leaflet.animation/Animator.js"></script>
+		<script src="leaflet.animation/Control.Animation.js"></script>
 
 		<script src="data.js"></script>
 	</head>
@@ -37,10 +40,16 @@
 			var map = new L.Map('map', {
 				}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 5);
 
+			var animationControl = L.control.animation({
+				animationControl: true,
+				stepWidth: 1000
+			}).addTo(map);
+			/*
 			var animator = L.animator({
 				speed: 1000,
 				stepWidth: 1000
 			});
+			*/
 
 			for(var i = 0; i < data.length; i++) {
 				var track = data[i].track;
@@ -57,7 +66,10 @@
 					smoothFactor: 0
 				}).addTo(map);
 				
+				animationControl.addAnimatedGeometry(polyline);
+				/*
 				animator.addAnimatedGeometry(polyline);
+				*/
 			}
 		</script>
 	</body>
