@@ -42,6 +42,8 @@
 
 			var animationControl = L.control.animation({
 				animationControl: true,
+				playbackSpeed: 1000,
+				playbackSpeeds: [100, 500, 1000, 10000, 100000],
 				stepWidth: 1000
 			}).addTo(map);
 			/*

@@ -48,9 +48,10 @@ L.Control.Animation = L.Control.extend({
 		        container, this.toEnd,  this);
 		if(this.options.playbackSpeeds !== undefined
 			&& this.options.playbackSpeeds.length > 1) {
-			this._speedButton  = this._createButton(
-			        this.options.playbackSpeed + 'x', 'Playback speed', animationName + '-speed', 
-			        container, this.toStart,  this);
+			this._speedButton  = this._createDropdownButton(
+			    this.options.playbackSpeed, this.options.playbackSpeeds, 'x',
+			    'Playback speed', animationName + '-speed', 
+			    container, this._speedSelected,  this);
 		}
 
 		return container;
@@ -109,6 +110,11 @@ L.Control.Animation = L.Control.extend({
 		this._animator.toEnd();
 	},
 
+	setSpeed: function(speed) {
+		this._animator.setSpeed(speed);
+		this._speedButton.getElementsByTagName('div')[0].innerHTML = speed + 'x';
+	},
+
 	_activate: function(button) {
 		var className = 'leaflet-animation-active';
 		L.DomUtil.addClass(button, className);
@@ -145,6 +151,35 @@ L.Control.Animation = L.Control.extend({
 		return this._createButton(
 			'<img src="leaflet.animation/images/' + icon + '-icon.png" />',
 			title, className, container, fn, context);
+	},
+
+	_createDropdownButton: function(option, options, suffix, title, className, container, fn, context) {
+		var html = '<div>' + option + suffix + '</div>';
+		html += '<ul>';
+		for(var i = 0; i < options.length; i++) {
+			html += '<li><div data-value="' + options[i] + '">' 
+				+ options[i] + suffix + '</div></li>';
+		}
+		html += '</ul>';
+		return this._createButton(html, title, className, container, fn, context);
+	},
+
+	_speedSelected: function(e) {
+		var speed = this._getDropdownValue(e);
+		if(speed !== null) {
+			this.setSpeed(parseFloat(speed));
+		}
+	},
+
+	_getDropdownValue: function(e) {
+		var el = e.srcElement || e.originalTarget;
+		if(el !== undefined) {
+			var value = el.getAttribute('data-value');
+			if(value !== null) {
+				return value;
+			}
+		}
+		return null;
 	},
 
 	_updateDisabled: function () {
