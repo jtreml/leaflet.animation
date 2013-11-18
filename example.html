@@ -1,35 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="leaflet/dist/leaflet.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" /><![endif]-->
+		<link rel="stylesheet" href="lib/leaflet/dist/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="lib/leaflet/dist/leaflet.ie.css" /><![endif]-->
 
-		<script src="leaflet/build/deps.js"></script>
-		<script src="leaflet/debug/leaflet-include.js"></script>
+		<script src="lib/leaflet/build/deps.js"></script>
+		<script src="lib/leaflet/debug/leaflet-include.js"></script>
 
-		<link rel="stylesheet" href="leaflet.animation/leaflet.animation.css" />
+		<link rel="stylesheet" href="dist/leaflet.animation.css" />
 
-		<script src="leaflet.animation/RequestAnimationFrameShim.js"></script>
-		<script src="leaflet.animation/dragdealer.js"></script>
+		<script src="dist/leaflet.animation.min.js"></script>
 
-		<script src="leaflet.animation/LatLngAnimated.js"></script>
-		<script src="leaflet.animation/PolylineAnimated.js"></script>
-		<script src="leaflet.animation/Animator.js"></script>
-		<script src="leaflet.animation/Control.Animation.js"></script>
-
-		<script src="data.js"></script>
+		<script src="debug/data.js"></script>
 	</head>
 	
 	<body>
-		<div>
-			<a href="javascript:animator.toStart()">&lt;&lt;&lt;</a>&nbsp;
-			<a href="javascript:animator.stepBackwards()">&lt;&lt;</a>&nbsp;
-			<a href="javascript:animator.playBackwards()">&lt;</a>&nbsp;
-			<a href="javascript:animator.pause()">||</a>&nbsp;
-			<a href="javascript:animator.play()">&gt;</a>&nbsp;
-			<a href="javascript:animator.step()">&gt;&gt;</a>&nbsp;
-			<a href="javascript:animator.toEnd()">&gt;&gt;&gt;</a>
-		</div>
 		<div id="map" style="width: 800px; height: 600px;"></div>
 
 		<script type="text/javascript">
@@ -47,12 +32,6 @@
 				playbackSpeeds: [100, 500, 1000, 10000, 100000],
 				stepWidth: 1000
 			}).addTo(map);
-			/*
-			var animator = L.animator({
-				speed: 1000,
-				stepWidth: 1000
-			});
-			*/
 
 			for(var i = 0; i < data.length; i++) {
 				var track = data[i].track;
@@ -70,9 +49,6 @@
 				}).addTo(map);
 				
 				animationControl.addAnimatedGeometry(polyline);
-				/*
-				animator.addAnimatedGeometry(polyline);
-				*/
 			}
 		</script>
 	</body>

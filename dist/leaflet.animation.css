@@ -29,14 +29,35 @@ div.leaflet-top.leaflet-center div.leaflet-bar a:last-child {
 }
 
 /* Generic icon button styling */
-div.leaflet-top.leaflet-center div.leaflet-bar a img {
-	width: 12px;
-	height: 12px;
-	vertical-align: middle;
+div.leaflet-animation-icon {
 	margin-bottom: 1px;
+	height: 100%;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 12px 12px;
 }
 
 /* Specific animation control styling */
+div.leaflet-animation-icon-to-start {
+	background-image: url(images/animation-to-start-icon.png);
+}
+div.leaflet-animation-icon-step-backwards {
+	background-image: url(images/animation-step-backwards-icon.png);
+}
+div.leaflet-animation-icon-play-backwards {
+	background-image: url(images/animation-play-backwards-icon.png);
+}
+div.leaflet-animation-icon-play {
+	background-image: url(images/animation-play-icon.png);
+}
+div.leaflet-animation-icon-step {
+	background-image: url(images/animation-step-icon.png);
+}
+div.leaflet-animation-icon-to-end {
+	background-image: url(images/animation-to-end-icon.png);
+}
+
 a.leaflet-control-animation-slider,
 a.leaflet-control-animation-slider:hover {
 	width: 180px;

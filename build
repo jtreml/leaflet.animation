@@ -1,0 +1,8 @@
+cat lib/RequestAnimationFrameShim.js > dist/leaflet.animation.js
+cat lib/dragdealer.js >> dist/leaflet.animation.js
+cat src/LatLngAnimated.js >> dist/leaflet.animation.js
+cat src/PolylineAnimated.js >> dist/leaflet.animation.js
+cat src/Animator.js >> dist/leaflet.animation.js
+cat src/Control.Animation.js >> dist/leaflet.animation.js
+
+java -jar yuicompressor.jar dist/leaflet.animation.js -o dist/leaflet.animation.min.js

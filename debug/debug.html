@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../lib/leaflet/dist/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="../lib/leaflet/dist/leaflet.ie.css" /><![endif]-->
+
+		<link rel="stylesheet" href="../dist/leaflet.animation.css" />
+
+		<script src="../lib/leaflet/build/deps.js"></script>
+		<script src="../lib/leaflet/debug/leaflet-include.js"></script>
+		<script src="../lib/RequestAnimationFrameShim.js"></script>
+		<script src="../lib/dragdealer.js"></script>
+
+		<script src="../src/LatLngAnimated.js"></script>
+		<script src="../src/PolylineAnimated.js"></script>
+		<script src="../src/Animator.js"></script>
+		<script src="../src/Control.Animation.js"></script>
+
+		<script src="data.js"></script>
+	</head>
+	
+	<body>
+		<!--
+		<div>
+			<a href="javascript:animator.toStart()">&lt;&lt;&lt;</a>&nbsp;
+			<a href="javascript:animator.stepBackwards()">&lt;&lt;</a>&nbsp;
+			<a href="javascript:animator.playBackwards()">&lt;</a>&nbsp;
+			<a href="javascript:animator.pause()">||</a>&nbsp;
+			<a href="javascript:animator.play()">&gt;</a>&nbsp;
+			<a href="javascript:animator.step()">&gt;&gt;</a>&nbsp;
+			<a href="javascript:animator.toEnd()">&gt;&gt;&gt;</a>
+		</div>
+		-->
+		<div id="map" style="width: 800px; height: 600px;"></div>
+
+		<script type="text/javascript">
+			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	          subdomains: ["a", "b", "c"],
+	          maxZoom: 18
+	        });
+			
+			var map = new L.Map('map', {
+				}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 5);
+
+			var animationControl = L.control.animation({
+				animationControl: true,
+				playbackSpeed: 1000,
+				playbackSpeeds: [100, 500, 1000, 10000, 100000],
+				stepWidth: 1000
+			}).addTo(map);
+			/*
+			var animator = L.animator({
+				speed: 1000,
+				stepWidth: 1000
+			});
+			*/
+
+			for(var i = 0; i < data.length; i++) {
+				var track = data[i].track;
+				var latlngs = new Array();
+				for(var j = 0; j < track.length; j++) {
+					latlngs.push(new L.LatLngAnimated(
+						track[j].lat, 
+						track[j].lng,
+						track[j].t));
+				}
+				var polyline = L.polylineAnimated(latlngs, {
+					color: data[i].color,
+					weight: 3,
+					smoothFactor: 0
+				}).addTo(map);
+				
+				animationControl.addAnimatedGeometry(polyline);
+				/*
+				animator.addAnimatedGeometry(polyline);
+				*/
+			}
+		</script>
+	</body>
+</html>

@@ -27,24 +27,24 @@ L.Control.Animation = L.Control.extend({
 		this._map = map;
 
 		this._toStartButton  = this._createIconButton(
-		        'animation-to-start', 'Go to beginning', animationName + '-to-start', 
+		        'to-start', 'Go to beginning', animationName + '-to-start', 
 		        container, this.toStart,  this);
 		this._stepBackwardsButton  = this._createIconButton(
-		        'animation-step-backwards', 'Step backwards', animationName + '-step-backwards', 
+		        'step-backwards', 'Step backwards', animationName + '-step-backwards', 
 		        container, this.stepBackwards,  this);
 		this._playBackwardsButton  = this._createIconButton(
-		        'animation-play-backwards', 'Play backwards', animationName + '-play-backwards', 
+		        'play-backwards', 'Play backwards', animationName + '-play-backwards', 
 		        container, this.playBackwards,  this);
 		this._slider  = this._createSlider('Time slider', animationName + '-slider', 
 		        container, this.toStart,  this);
 		this._playButton  = this._createIconButton(
-		        'animation-play', 'Play', animationName + '-play', 
+		        'play', 'Play', animationName + '-play', 
 		        container, this.play,  this);
 		this._stepButton  = this._createIconButton(
-		        'animation-step', 'Step', animationName + '-step', 
+		        'step', 'Step', animationName + '-step', 
 		        container, this.step,  this);
 		this._toEndButton  = this._createIconButton(
-		        'animation-to-end', 'Go to end', animationName + '-to-end', 
+		        'to-end', 'Go to end', animationName + '-to-end', 
 		        container, this.toEnd,  this);
 		if(this.options.playbackSpeeds !== undefined
 			&& this.options.playbackSpeeds.length > 1) {
@@ -149,7 +149,7 @@ L.Control.Animation = L.Control.extend({
 
 	_createIconButton: function(icon, title, className, container, fn, context) {
 		return this._createButton(
-			'<img src="leaflet.animation/images/' + icon + '-icon.png" />',
+			'<div class="leaflet-animation-icon leaflet-animation-icon-' + icon + '"></div>',
 			title, className, container, fn, context);
 	},
 
