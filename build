@@ -1,5 +1,6 @@
 cat lib/RequestAnimationFrameShim.js > dist/leaflet.animation.js
 cat lib/dragdealer.js >> dist/leaflet.animation.js
+cat src/BinarySearch.js >> dist/leaflet.animation.js
 cat src/LatLngAnimated.js >> dist/leaflet.animation.js
 cat src/PolylineAnimated.js >> dist/leaflet.animation.js
 cat src/Animator.js >> dist/leaflet.animation.js

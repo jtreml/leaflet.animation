@@ -1,5 +1,4 @@
 L.PolylineAnimated = L.Polyline.extend({
-
 	initialize: function (latlngsAnimated, options) {
 		L.Polyline.prototype.initialize.call(this, new Array(), options);
 
@@ -15,9 +14,9 @@ L.PolylineAnimated = L.Polyline.extend({
 	},
 
 	setTime: function(t) {
-		var iCurrent = this._index(this._t);
-		var iNew = this._index(t);
 		var iMax = this._latlngsAnimated.length - 1;
+		var iCurrent = this._bs_search(this._latlngsAnimated, this._t, 0, iMax);
+		var iNew = this._bs_search(this._latlngsAnimated, t, 0, iMax);
 
 		this._t = t;
 
@@ -49,29 +48,10 @@ L.PolylineAnimated = L.Polyline.extend({
 		lng = one.lng + (two.lng - one.lng) * factor;
 		t = one.t.getTime() + (two.t.getTime() - one.t.getTime()) * factor;
 		return new L.LatLngAnimated(lat, lng, new Date(t));
-	},
-
-	_index: function(t) {
-		if(t === undefined
-			|| this._latlngsAnimated.length === 0
-			|| t < this._latlngsAnimated[0].t.getTime()) {
-			return -1;
-		}
-
-		for(var i = 0; i < this._latlngsAnimated.length - 1; i++) {
-			var t1 = this._latlngsAnimated[i].t.getTime();
-			var t2 = this._latlngsAnimated[i + 1].t.getTime();
-
-			if(t > t2) {
-				continue;
-			}
-
-			return i + (t - t1) / (t2 - t1);
-		}
-
-		return this._latlngsAnimated.length - 1;
 	}
 });
+
+L.PolylineAnimated.include(L.BinarySearch);
 
 L.polylineAnimated = function (latlngsAnimated, options) {
 	return new L.PolylineAnimated(latlngsAnimated, options);
