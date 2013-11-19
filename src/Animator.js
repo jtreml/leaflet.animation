@@ -27,7 +27,7 @@ L.Animator = L.Class.extend({
 
 		this._t = tClean;
 		for(var i = 0; i < this._geometries.length; i++) {
-			this._geometries[i].setTime(t);
+			this._geometries[i].setTime(tClean);
 		}
 	},
 

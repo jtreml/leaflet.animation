@@ -745,7 +745,7 @@ L.Animator = L.Class.extend({
 
 		this._t = tClean;
 		for(var i = 0; i < this._geometries.length; i++) {
-			this._geometries[i].setTime(t);
+			this._geometries[i].setTime(tClean);
 		}
 	},
 
@@ -1103,7 +1103,7 @@ L.Control.Animation = L.Control.extend({
 			window.clearTimeout(this._slideTimeout);
 			this._slideTimeout = undefined;
 		}
-		if(this._autoSlide === percent) {
+		if(Math.abs(this._autoSlide - percent) < 1e-5) {
 			this._autoSlide = undefined;
 			return;
 		}
