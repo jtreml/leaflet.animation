@@ -58,6 +58,31 @@ div.leaflet-animation-icon-to-end {
 	background-image: url(images/animation-to-end-icon.png);
 }
 
+@media 
+(-webkit-min-device-pixel-ratio: 1.5),
+(min--moz-device-pixel-ratio: 1.5),
+(-o-min-device-pixel-ratio: 3/2),
+(min-resolution: 1.5dppx) {
+	div.leaflet-animation-icon-to-start {
+		background-image: url(images/animation-to-start-icon@2x.png);
+	}
+	div.leaflet-animation-icon-step-backwards {
+		background-image: url(images/animation-step-backwards-icon@2x.png);
+	}
+	div.leaflet-animation-icon-play-backwards {
+		background-image: url(images/animation-play-backwards-icon@2x.png);
+	}
+	div.leaflet-animation-icon-play {
+		background-image: url(images/animation-play-icon@2x.png);
+	}
+	div.leaflet-animation-icon-step {
+		background-image: url(images/animation-step-icon@2x.png);
+	}
+	div.leaflet-animation-icon-to-end {
+		background-image: url(images/animation-to-end-icon@2x.png);
+	}
+}
+
 a.leaflet-control-animation-slider,
 a.leaflet-control-animation-slider:hover {
 	width: 180px;
