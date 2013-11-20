@@ -32,5 +32,16 @@ L.BinarySearch = {
 				return mid + (t - t1) / (t2 - t1);
 			}
 		}
+	},
+
+	_bs_interpolate: function(one, two, factor) {
+		return one + (two - one) * factor;
+	},
+
+	_bs_interpolate_latlng: function(one, two, factor) {
+		lat = one.lat + (two.lat - one.lat) * factor;
+		lng = one.lng + (two.lng - one.lng) * factor;
+		t = one.t.getTime() + (two.t.getTime() - one.t.getTime()) * factor;
+		return new L.LatLngAnimated(lat, lng, new Date(t));
 	}
 };

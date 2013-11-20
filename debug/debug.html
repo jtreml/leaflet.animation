@@ -13,6 +13,7 @@
 		<script src="../src/BinarySearch.js"></script>
 		<script src="../src/LatLngAnimated.js"></script>
 		<script src="../src/PolylineAnimated.js"></script>
+		<script src="../src/CircleAnimated.js"></script>
 		<script src="../src/Animator.js"></script>
 		<script src="../src/Control.Animation.js"></script>
 
@@ -48,12 +49,6 @@
 				playbackSpeeds: [100, 500, 1000, 10000, 100000],
 				stepWidth: 1000
 			}).addTo(map);
-			/*
-			var animator = L.animator({
-				speed: 1000,
-				stepWidth: 1000
-			});
-			*/
 
 			for(var i = 0; i < data.length; i++) {
 				var track = data[i].track;
@@ -69,8 +64,12 @@
 					weight: 3,
 					smoothFactor: 0
 				}).addTo(map);
+				var circle = L.circleAnimated(latlngs, [10], {
+					color: 'blue'
+				}).addTo(map);
 				
 				animationControl.addAnimatedGeometry(polyline);
+				animationControl.addAnimatedGeometry(circle);
 				/*
 				animator.addAnimatedGeometry(polyline);
 				*/

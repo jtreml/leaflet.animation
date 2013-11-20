@@ -33,7 +33,7 @@ L.PolylineAnimated = L.Polyline.extend({
 			if(iNew > iBase) {
 				var add = this._latlngsAnimated.slice(iBase + 1, iNewBase + 1);
 				if(iNew > iNewBase) {
-					add.push(this._interpolate(
+					add.push(this._bs_interpolate_latlng(
 						this._latlngsAnimated[iNewBase],
 						this._latlngsAnimated[iNewBase + 1],
 						iNew - iNewBase));
@@ -44,13 +44,6 @@ L.PolylineAnimated = L.Polyline.extend({
 				this.spliceLatLngs(iBase + 1);
 			}
 		}
-	},
-
-	_interpolate: function(one, two, factor) {
-		lat = one.lat + (two.lat - one.lat) * factor;
-		lng = one.lng + (two.lng - one.lng) * factor;
-		t = one.t.getTime() + (two.t.getTime() - one.t.getTime()) * factor;
-		return new L.LatLngAnimated(lat, lng, new Date(t));
 	}
 });
 
