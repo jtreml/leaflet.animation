@@ -20,12 +20,15 @@ L.PolylineAnimated = L.Polyline.extend({
 
 		this._t = t;
 
-		if(iCurrent >= 0 && iNew < 0) {
-			this.setLatLngs(new Array());
+		if(iNew <= 0) {
+			if(iCurrent > 0) {
+				this.setLatLngs(new Array());
+			}
+			return;
 		} else if(iNew >= iMax && iCurrent >= iMax) {
 			return;
 		} else {
-			var iBase = Math.floor(Math.min(iCurrent, iNew));
+			var iBase = iCurrent > 0 ? Math.floor(Math.min(iCurrent, iNew)) : -1;
 			var iNewBase = Math.floor(iNew);
 			if(iNew > iBase) {
 				var add = this._latlngsAnimated.slice(iBase + 1, iNewBase + 1);
