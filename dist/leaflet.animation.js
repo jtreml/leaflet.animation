@@ -1051,6 +1051,7 @@ L.Control.Animation = L.Control.extend({
 		// of this method, otherwise it will fail because
 		// of offsets not being available yet.
 		var self = this;
+		this._sliderInitialized = false;
 		var setup = function() {
 			self._dragdealer = new Dragdealer(wrapper, {
 				slide: false,
@@ -1058,6 +1059,7 @@ L.Control.Animation = L.Control.extend({
 				speed: 100,
 				x: self._animator.getProgress()
 			});
+			self._sliderInitialized = true;
 		};
 		window.setTimeout(setup, 0);
 
@@ -1099,12 +1101,15 @@ L.Control.Animation = L.Control.extend({
 
 	_progress: function(percent) {
 		this._autoSlide = percent;
-		if(this._dragdealer !== undefined) {
+		if(this._sliderInitialized) {
 			this._dragdealer.setValue(percent);
 		}
 	},
 
 	_slide: function(percent) {
+		if(!this._sliderInitialized) {
+			return;
+		}
 		if(this._slideTimeout) {
 			window.clearTimeout(this._slideTimeout);
 			this._slideTimeout = undefined;
