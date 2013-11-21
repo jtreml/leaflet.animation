@@ -1052,7 +1052,8 @@ L.Control.Animation = L.Control.extend({
 			self._dragdealer = new Dragdealer(wrapper, {
 				slide: false,
 				animationCallback: self._slide.bind(self),
-				speed: 100
+				speed: 100,
+				x: self._animator.getProgress()
 			});
 		};
 		window.setTimeout(setup, 0);
@@ -1095,7 +1096,9 @@ L.Control.Animation = L.Control.extend({
 
 	_progress: function(percent) {
 		this._autoSlide = percent;
-		this._dragdealer.setValue(percent);
+		if(this._dragdealer !== undefined) {
+			this._dragdealer.setValue(percent);
+		}
 	},
 
 	_slide: function(percent) {

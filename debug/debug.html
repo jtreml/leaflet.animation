@@ -3,7 +3,6 @@
 	<head>
 		<link rel="stylesheet" href="../lib/leaflet/dist/leaflet.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="../lib/leaflet/dist/leaflet.ie.css" /><![endif]-->
-
 		<link rel="stylesheet" href="../dist/leaflet.animation.css" />
 
 		<script src="../lib/leaflet/build/deps.js"></script>
@@ -76,6 +75,11 @@
 				animator.addAnimatedGeometry(polyline);
 				*/
 			}
+
+			animationControl.toEnd();
+			/*
+			animator.toEnd();
+			*/
 		</script>
 	</body>
 </html>
